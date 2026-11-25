@@ -1,0 +1,132 @@
+{
+  "action": "split_prompt",
+  "data": {
+    "prompt": "1. A cinematic shot of a city...\n\n2. A character walks into the street...\n\n3. The camera moves toward the character...",
+    "separator_mode": "auto"
+  }
+}
+
+
+
+{
+  "status": "success",
+  "data": {
+    "project_id": "PROJECT_UUID",
+    "total_segments": 3,
+    "segments": [
+      {
+        "sequence": 1,
+        "prompt": "A cinematic shot of a city..."
+      },
+      {
+        "sequence": 2,
+        "prompt": "A character walks into the street..."
+      },
+      {
+        "sequence": 3,
+        "prompt": "The camera moves toward the character..."
+      }
+    ]
+  }
+}
+
+{
+  "action": "register_asset",
+  "data": {
+    "project_id": "PROJECT_UUID",
+    "name": "character_reference.png",
+    "asset_type": "image",
+    "mime_type": "image/png",
+    "file_size": 2048000,
+    "storage_provider": "s3",
+    "storage_key": "users/USER_UUID/assets/character.png",
+    "width": 1024,
+    "height": 1024
+  }
+}
+
+
+{
+  "action": "submit_video_generation",
+  "data": {
+    "project_id": "PROJECT_UUID",
+    "model_name": "ltx-2.5",
+    "idempotency_key": "generation-request-001",
+    "settings": {
+      "parallel_generation": true
+    },
+    "clips": [
+      {
+        "sequence": 1,
+        "prompt": "A cinematic drone shot of a futuristic city at sunset.",
+        "model_name": "ltx-2.5",
+        "settings": {
+          "resolution": "1080p",
+          "duration_seconds": 8,
+          "fps": 24,
+          "steps": 30,
+          "quality": "high",
+          "aspect_ratio": "16:9"
+        },
+        "assets": [
+          {
+            "asset_id": "ASSET_UUID",
+            "role": "first_frame"
+          },
+          {
+            "asset_id": "CHARACTER_ASSET_UUID",
+            "role": "character"
+          }
+        ]
+      },
+      {
+        "sequence": 2,
+        "prompt": "The camera follows the character through the futuristic city.",
+        "model_name": "ltx-2.5",
+        "settings": {
+          "resolution": "720p",
+          "duration_seconds": 5,
+          "fps": 24,
+          "steps": 25,
+          "quality": "standard",
+          "aspect_ratio": "16:9"
+        },
+        "assets": [
+          {
+            "asset_id": "ASSET_UUID",
+            "role": "last_frame"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+
+{
+  "action": "get_generation_job",
+  "data": {
+    "job_id": "JOB_UUID"
+  }
+}
+
+{
+  "status": "success",
+  "data": {
+    "job_id": "JOB_UUID",
+    "status": "generating",
+    "total_clips": 2,
+    "completed_clips": 1,
+    "failed_clips": 0
+  }
+}
+
+{
+  "action": "assemble_video",
+  "data": {
+    "project_id": "PROJECT_UUID",
+    "job_id": "JOB_UUID",
+    "output_name": "final_video.mp4",
+    "include_audio": true
+  }
+}

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101411">
+    <title>Framecraft Studio</title>
+    <link rel="stylesheet" href="/frontend/static/styles.css">
+    <script src="/frontend/static/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/frontend/" aria-label="Framecraft Studio home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span>framecraft<span class="brand-light"> studio</span></span>
+        </a>
+        <nav id="primary-nav" class="primary-nav hidden" aria-label="Main navigation">
+          <a class="is-current" href="/frontend/">Home</a>
+          <a href="/frontend/history">History</a>
+          <a href="/frontend/samples">Samples</a>
+          <a href="/frontend/subscription">Plans</a>
+        </nav>
+        <div class="topbar-right">
+          <button id="sidebar-toggle" class="button button-quiet hidden" type="button" aria-controls="studio-sidebar" aria-expanded="true">Hide controls</button>
+          <button id="theme-toggle" class="button button-quiet" type="button" aria-label="Switch to light theme">Light theme</button>
+          <span id="connection-indicator" class="connection-indicator is-offline">
+            <span class="status-dot"></span>
+            <span id="connection-label">Disconnected</span>
+          </span>
+          <span id="role-indicator" class="role-indicator hidden"></span>
+          <button id="connect-button" class="button button-quiet" type="button">Connect</button>
+          <button id="profile-toggle" class="profile-card-trigger hidden" type="button" aria-controls="profile-sidebar" aria-expanded="false">
+            <span id="profile-avatar" class="profile-avatar">FC</span>
+            <span><strong id="profile-name">Your account</strong><small id="profile-credit-balance">Credits loading</small></span>
+            <span class="profile-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <button id="signout-button" class="button button-quiet hidden" type="button">Sign out</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="auth-panel" class="auth-panel">
+          <div class="auth-copy">
+            <p class="eyebrow">YOUR VIDEO WORKSPACE</p>
+            <h1>Turn a prompt into<br><span class="accent-text">a sequence of shots.</span></h1>
+            <p class="muted">Sign in to open a secure realtime session and build your next video, scene by scene.</p>
+          </div>
+          <form id="login-form" class="login-card">
+            <div id="auth-notice" class="notice hidden" role="alert" aria-live="assertive"></div>
+            <div class="card-heading">
+              <span class="step-number">01</span>
+              <div>
+                <h2>Connect your workspace</h2>
+                <p>Use your account credentials to get an access token.</p>
+              </div>
+            </div>
+            <label for="email-input">Email</label>
+            <input id="email-input" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
+            <label for="password-input">Password</label>
+            <input id="password-input" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+            <button class="button button-primary button-wide" type="submit">Sign in &amp; connect <span aria-hidden="true">↗</span></button>
+            <p class="form-note">Your access token is kept in this browser session only.</p>
+          </form>
+        </section>
+
+        <section id="studio" class="studio hidden">
+          <aside id="studio-sidebar" class="sidebar">
+            <div class="sidebar-section">
+              <div class="section-label-row">
+                <span class="eyebrow">WORKSPACE</span>
+                <button id="refresh-projects-button" class="icon-button" type="button" aria-label="Refresh projects" title="Refresh projects">↻</button>
+              </div>
+              <label class="sr-only" for="project-select">Choose a project</label>
+              <select id="project-select" class="select-control">
+                <option value="">Choose a project…</option>
+              </select>
+              <div class="new-project-row">
+                <input id="project-name-input" type="text" maxlength="255" placeholder="New project name">
+                <button id="create-project-button" class="button button-small" type="button" title="Create project">+</button>
+              </div>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section prompt-section">
+              <div class="section-label-row">
+                <span class="eyebrow">01 / SCRIPT</span>
+                <span class="tiny-label">UP TO 100K CHARS</span>
+              </div>
+              <h2>Start with a prompt</h2>
+              <p class="muted small-copy">Separate scenes with a blank line, or let the splitter find them.</p>
+              <label class="sr-only" for="master-prompt">Video prompt</label>
+              <textarea id="master-prompt" rows="8" maxlength="100000" placeholder="A quiet morning in a sunlit kitchen…&#10;&#10;A close-up reveals the coffee being poured…"></textarea>
+              <div class="prompt-controls">
+                <label class="sr-only" for="separator-mode">Scene separator</label>
+                <select id="separator-mode" class="select-control select-compact">
+                  <option value="auto">Auto split</option>
+                  <option value="blank_lines">Blank lines</option>
+                  <option value="numbered">Numbered scenes</option>
+                </select>
+                <button id="split-button" class="button button-primary" type="button">Split into scenes <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section generation-settings">
+              <div class="section-label-row">
+                <span class="eyebrow">02 / GENERATION</span>
+              </div>
+              <label for="model-input">Model name</label>
+              <select id="model-input" class="select-control" required>
+                <option value="">Loading available models…</option>
+              </select>
+              <div class="settings-grid">
+                <div>
+                  <label for="quality-input">Quality</label>
+                  <select id="quality-input" class="select-control">
+                    <option value="standard">Standard</option>
+                    <option value="high">High</option>
+                    <option value="ultra">Ultra</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="resolution-input">Resolution</label>
+                  <select id="resolution-input" class="select-control">
+                    <option>720p</option>
+                    <option>1080p</option>
+                    <option>480p</option>
+                    <option>540p</option>
+                    <option>1440p</option>
+                  </select>
+                </div>
+                <div class="duration-setting">
+                  <label for="duration-input">Seconds / scene</label>
+                  <input id="duration-input" type="number" min="1" max="60" step="1" value="5">
+                </div>
+              </div>
+              <div id="credit-estimate" class="credit-estimate" aria-live="polite">
+                <span>Estimated project credits</span>
+                <strong id="credit-estimate-value">Choose a project and model</strong>
+                <small id="credit-estimate-note">Pricing is set by your administrator.</small>
+              </div>
+              <button id="generate-button" class="button button-generate button-wide" type="button" disabled>
+                <span aria-hidden="true">✦</span> Generate all scenes
+              </button>
+              <p class="form-note">Scenes are approved automatically before generation.</p>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section library-section">
+              <div class="section-label-row">
+                <span class="eyebrow">ASSET LIBRARY</span>
+                <span id="asset-count" class="tiny-label">0 FILES</span>
+              </div>
+              <p class="form-note">Pin an asset to include it in every scene. Drag assets from this list onto a scene.</p>
+              <label class="sr-only" for="asset-target-select">Attach asset to scene</label>
+              <select id="asset-target-select" class="select-control select-compact">
+                <option value="">Choose a scene…</option>
+              </select>
+              <div id="asset-library" class="asset-library">
+                <p class="empty-note">Uploaded references will appear here.</p>
+              </div>
+            </div>
+          </aside>
+
+          <section class="canvas">
+            <div id="subscription-prompt" class="subscription-prompt hidden">
+              <div>
+                <p class="eyebrow">GET STARTED</p>
+                <strong id="subscription-prompt-title">Choose a subscription</strong>
+                <p id="subscription-prompt-copy">Compare available plans and included credits.</p>
+                <div id="subscription-plan-preview" class="subscription-plan-preview"></div>
+              </div>
+              <a class="button button-primary" href="/frontend/subscription">View plans <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="canvas-heading">
+              <div>
+                <p class="eyebrow">STORYBOARD</p>
+                <h1 id="canvas-title">Your scenes, in sequence</h1>
+                <p id="canvas-subtitle" class="muted">Split a prompt to begin building your timeline.</p>
+              </div>
+              <div class="canvas-actions">
+                <span id="job-status" class="job-status hidden"></span>
+                <button id="assemble-button" class="button button-quiet hidden" type="button">Assemble video</button>
+              </div>
+            </div>
+
+            <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
+            <div id="timeline" class="timeline">
+              <div class="timeline-empty">
+                <div class="empty-illustration" aria-hidden="true">
+                  <span class="film-frame frame-one"></span>
+                  <span class="film-frame frame-two"></span>
+                  <span class="film-frame frame-three"></span>
+                </div>
+                <h2>Your storyboard starts here</h2>
+                <p>Add a script on the left and split it into scenes.<br>Then drag reference images onto any scene.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <aside id="profile-sidebar" class="profile-sidebar hidden" aria-label="Profile and credits">
+          <div class="profile-sidebar-heading">
+            <div><p class="eyebrow">YOUR ACCOUNT</p><h2>Profile &amp; credits</h2></div>
+            <button id="profile-close" class="icon-button" type="button" aria-label="Close profile">×</button>
+          </div>
+          <div id="profile-content"><p class="empty-note">Loading account details…</p></div>
+        </aside>
+
+        <section id="admin-panel" class="admin-panel hidden">
+          <div class="admin-heading">
+            <div>
+              <p class="eyebrow">FRAMECRAFT CONTROL ROOM</p>
+              <h1>Administration</h1>
+              <p class="muted">Manage workspace accounts, providers, models, and subscription plans.</p>
+            </div>
+            <div class="admin-heading-actions">
+              <a class="button button-quiet" href="/frontend/static/admin-guide.md" target="_blank" rel="noopener">Admin guide</a>
+              <a class="button button-quiet" href="/frontend/static/example.txt" target="_blank" rel="noopener">Provider example</a>
+              <button id="refresh-admin-button" class="button button-quiet" type="button">Refresh data</button>
+            </div>
+          </div>
+          <div id="admin-notice" class="notice hidden" role="status" aria-live="polite"></div>
+          <div class="admin-grid">
+            <section class="admin-card">
+              <div class="admin-card-heading">
+                <div><p class="eyebrow">ACCOUNTS</p><h2>Users</h2></div>
+                <span id="admin-user-count" class="tiny-label">—</span>
+              </div>
+              <div class="admin-card-tools"><button class="button button-small-text" type="button" data-admin-add="users">Add user</button></div>
+              <div class="admin-table-wrap">
+                <table><thead><tr><th>Email</th><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="admin-users"><tr><td colspan="5" class="admin-empty">Loading users…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="admin-card">
+              <div class="admin-card-heading">
+                <div><p class="eyebrow">INTEGRATIONS</p><h2>Providers</h2></div>
+                <span id="admin-provider-count" class="tiny-label">—</span>
+              </div>
+              <div class="admin-card-tools"><button class="button button-small-text" type="button" data-admin-add="providers">Add provider</button></div>
+              <div class="admin-table-wrap">
+                <table><thead><tr><th>Provider</th><th>Type</th><th>Base URL</th><th>API key env</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="admin-providers"><tr><td colspan="6" class="admin-empty">Loading providers…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="admin-card">
+              <div class="admin-card-heading">
+                <div><p class="eyebrow">CATALOG</p><h2>Provider models</h2></div>
+                <span id="admin-model-count" class="tiny-label">—</span>
+              </div>
+              <div class="admin-card-tools"><button class="button button-small-text" type="button" data-admin-add="models">Add model</button></div>
+              <div class="admin-table-wrap">
+                <table><thead><tr><th>Model</th><th>Provider ID</th><th>Description</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="admin-models"><tr><td colspan="5" class="admin-empty">Loading models…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="admin-card">
+              <div class="admin-card-heading">
+                <div><p class="eyebrow">BILLING</p><h2>Subscription plans</h2></div>
+                <span id="admin-plan-count" class="tiny-label">—</span>
+              </div>
+              <div class="admin-card-tools"><button class="button button-small-text" type="button" data-admin-add="plans">Add plan</button></div>
+              <div class="admin-table-wrap">
+                <table><thead><tr><th>Plan</th><th>Price</th><th>Credits</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody id="admin-plans"><tr><td colspan="5" class="admin-empty">Loading plans…</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+      <dialog id="admin-editor" class="admin-dialog">
+        <form id="admin-editor-form">
+          <div class="admin-editor-heading">
+            <div><p class="eyebrow">ADMIN EDITOR</p><h2 id="admin-editor-title">Add resource</h2></div>
+            <button id="admin-editor-close" class="icon-button" type="button" aria-label="Close editor">×</button>
+          </div>
+          <div id="admin-editor-fields" class="admin-editor-fields"></div>
+          <p id="admin-editor-error" class="admin-editor-error hidden" role="alert"></p>
+          <div class="admin-editor-actions">
+            <button id="admin-editor-cancel" class="button button-quiet" type="button">Cancel</button>
+            <button class="button button-primary" type="submit">Save changes</button>
+          </div>
+        </form>
+      </dialog>
+      <dialog id="admin-user-detail" class="admin-dialog admin-detail-dialog">
+        <div class="admin-dialog-content">
+          <div class="admin-editor-heading">
+            <div><p class="eyebrow">ACCOUNT MANAGEMENT</p><h2 id="admin-detail-title">User details</h2></div>
+            <button id="admin-detail-close" class="icon-button" type="button" aria-label="Close user details">×</button>
+          </div>
+          <div id="admin-detail-content" class="admin-detail-content"></div>
+        </div>
+      </dialog>
+      <footer class="footer">
+        <span>FRAMECRAFT STUDIO</span>
+        <span>Realtime video workflow</span>
+      </footer>
+    </div>
+  </body>
+</html>

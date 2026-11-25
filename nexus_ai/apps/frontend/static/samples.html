@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101411">
+    <title>Model samples · Framecraft</title>
+    <link rel="stylesheet" href="/frontend/static/styles.css">
+    <script src="/frontend/static/pages.js" defer></script>
+    <style>
+      .sample-embed-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-radius: 10px;
+        background: #0b0e0c;
+        margin-bottom: 0.85rem;
+      }
+      .sample-embed-wrap iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      .sample-preview {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        background: #0b0e0c;
+        cursor: pointer;
+      }
+      .sample-preview img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .sample-preview-play {
+        z-index: 1;
+        display: grid;
+        width: 3.5rem;
+        height: 2.5rem;
+        place-items: center;
+        border-radius: 0.65rem;
+        background: #e62117;
+        color: #fff;
+        font-size: 1.25rem;
+        box-shadow: 0 2px 12px #0008;
+      }
+      .sample-preview:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: -4px;
+      }
+      .sample-source-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body data-page="samples">
+    <div class="app-shell">
+      <header class="topbar site-topbar">
+        <a class="brand" href="/frontend/" aria-label="Framecraft Studio home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span>framecraft<span class="brand-light"> studio</span></span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="/frontend/">Home</a>
+          <a href="/frontend/history">History</a>
+          <a class="is-current" href="/frontend/samples">Samples</a>
+          <a href="/frontend/subscription">Plans</a>
+        </nav>
+        <div class="topbar-right">
+          <button id="pages-theme-toggle" class="button button-quiet" type="button">Light theme</button>
+          <a class="profile-card-trigger" href="/frontend/" aria-label="Return to your profile">
+            <span id="pages-avatar" class="profile-avatar">FC</span>
+            <span><strong id="pages-profile-name">Account</strong><small id="pages-credit-balance">Credits</small></span>
+          </a>
+          <button id="pages-signout" class="button button-quiet" type="button">Sign out</button>
+        </div>
+      </header>
+      <main class="content-page">
+        <section class="page-hero page-hero-compact">
+          <p class="eyebrow">MODEL LIBRARY</p>
+          <h1>See what each model can do.</h1>
+          <p class="muted">Finished video-generation results from LTX-2.5, Wan 2.2, and MiniMax H3 — not reviews or walkthroughs.</p>
+        </section>
+        <div id="page-message" class="notice hidden" role="status" aria-live="polite"></div>
+        <div id="sample-list" class="sample-grid">
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="sT52SibJe3U" data-video-title="Tiagong Tape: A sci-fi short made using LTX-2.5 video model" aria-label="Play video: Tiagong Tape">
+                <img src="https://i.ytimg.com/vi/sT52SibJe3U/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">LTX-2.5 · SCI-FI SHORT</p>
+            <h2>Tiagong Tape</h2>
+            <p class="muted">A finished sci-fi short made using the LTX-2.5 video model, rather than a model walkthrough.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=sT52SibJe3U" target="_blank" rel="noopener noreferrer">Watch on YouTube · Sarfaraz H+</a>
+          </article>
+
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="gly2zDJWIFI" data-video-title="What We've Been Making with LTX-2.5" aria-label="Play video: What We've Been Making">
+                <img src="https://i.ytimg.com/vi/gly2zDJWIFI/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">LTX-2.5 · GENERATED CLIPS</p>
+            <h2>What We've Been Making</h2>
+            <p class="muted">A showcase of 52 video experiments generated locally with LTX-2.5.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=gly2zDJWIFI" target="_blank" rel="noopener noreferrer">Watch on YouTube · Wild Pines AI</a>
+          </article>
+
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="MY1Pw_0_2mY" data-video-title="Fall Of The Ronin - Wan 2.2 AI Short Film" aria-label="Play video: Fall Of The Ronin">
+                <img src="https://i.ytimg.com/vi/MY1Pw_0_2mY/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">WAN 2.2 · ACTION SHORT</p>
+            <h2>Fall Of The Ronin</h2>
+            <p class="muted">A complete cinematic AI short film created with Wan 2.2.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=MY1Pw_0_2mY" target="_blank" rel="noopener noreferrer">Watch on YouTube · D|STUDIO</a>
+          </article>
+
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="uduby3rxc4Y" data-video-title="The Journey We All Take - AI video animated by WAN 2.2" aria-label="Play video: The Journey We All Take">
+                <img src="https://i.ytimg.com/vi/uduby3rxc4Y/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">WAN 2.2 · CINEMATIC SHORT</p>
+            <h2>The Journey We All Take</h2>
+            <p class="muted">A finished cinematic short animated with Wan 2.2 video generation.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=uduby3rxc4Y" target="_blank" rel="noopener noreferrer">Watch on YouTube · OPEN YOUR EYES STUDIO</a>
+          </article>
+
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="ccAWF9Nn5S4" data-video-title="The Inventor Who Sold Time | AI Short Film (MiniMax H3)" aria-label="Play video: The Inventor Who Sold Time">
+                <img src="https://i.ytimg.com/vi/ccAWF9Nn5S4/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">MINIMAX H3 · AI SHORT FILM</p>
+            <h2>The Inventor Who Sold Time</h2>
+            <p class="muted">A ten-minute story whose creator describes it as generated entirely by AI from text prompts.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=ccAWF9Nn5S4" target="_blank" rel="noopener noreferrer">Watch on YouTube · Struggle Technology</a>
+          </article>
+
+          <article class="sample-card">
+            <div class="sample-embed-wrap">
+              <button class="sample-preview" type="button" data-video-id="PHmaqWk9FsI" data-video-title="Three Tales from the Deep Forest | AI Short Films (MiniMax H3)" aria-label="Play video: Three Tales from the Deep Forest">
+                <img src="https://i.ytimg.com/vi/PHmaqWk9FsI/hqdefault.jpg" alt="">
+                <span class="sample-preview-play" aria-hidden="true">▶</span>
+              </button>
+            </div>
+            <p class="eyebrow">MINIMAX H3 · AI SHORT FILMS</p>
+            <h2>Three Tales from the Deep Forest</h2>
+            <p class="muted">Three stories in a ten-minute film collection described by its creator as generated entirely by AI from text prompts.</p>
+            <a class="sample-source-link" href="https://www.youtube.com/watch?v=PHmaqWk9FsI" target="_blank" rel="noopener noreferrer">Watch on YouTube · Struggle Technology</a>
+          </article>
+        </div>
+      </main>
+      <footer class="footer"><span>FRAMECRAFT STUDIO</span><span>Generated video results</span></footer>
+    </div>
+  </body>
+</html>
