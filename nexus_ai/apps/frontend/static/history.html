@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101411">
+    <title>Project history · Framecraft</title>
+    <link rel="stylesheet" href="/frontend/static/styles.css">
+    <script src="/frontend/static/pages.js" defer></script>
+  </head>
+  <body data-page="history">
+    <div class="app-shell">
+      <header class="topbar site-topbar">
+        <a class="brand" href="/frontend/" aria-label="Framecraft Studio home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span>framecraft<span class="brand-light"> studio</span></span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="/frontend/">Home</a>
+          <a class="is-current" href="/frontend/history">History</a>
+          <a href="/frontend/samples">Samples</a>
+          <a href="/frontend/subscription">Plans</a>
+        </nav>
+        <div class="topbar-right">
+          <button id="pages-theme-toggle" class="button button-quiet" type="button">Light theme</button>
+          <a class="profile-card-trigger" href="/frontend/" aria-label="Return to your profile">
+            <span id="pages-avatar" class="profile-avatar">FC</span>
+            <span><strong id="pages-profile-name">Account</strong><small id="pages-credit-balance">Credits</small></span>
+          </a>
+          <button id="pages-signout" class="button button-quiet" type="button">Sign out</button>
+        </div>
+      </header>
+      <main class="content-page">
+        <section class="page-hero page-hero-compact">
+          <p class="eyebrow">YOUR WORKSPACE</p>
+          <h1>Project history</h1>
+          <p class="muted">Your latest projects first, with prompts kept in scene order.</p>
+        </section>
+        <div id="page-message" class="notice hidden" role="status" aria-live="polite"></div>
+        <div id="history-list" class="history-list">
+          <p class="empty-note">Loading project history…</p>
+        </div>
+      </main>
+      <footer class="footer"><span>FRAMECRAFT STUDIO</span><span>Your prompts, organized by project</span></footer>
+    </div>
+  </body>
+</html>

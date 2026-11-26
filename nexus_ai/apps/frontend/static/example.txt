@@ -1,0 +1,76 @@
+Framecraft provider configuration examples
+==========================================
+
+IMPORTANT
+---------
+The admin API stores provider metadata. `api_key_env` is the NAME of a server-side
+environment variable; never paste an API key or token into this form, this file,
+or provider `settings`. The provider CRUD endpoints do not provision GPUs or make
+the video worker call an arbitrary provider automatically. A worker adapter must
+implement the provider's API protocol and read the named secret from the server
+environment before generation can use that provider.
+
+RunPod-hosted LTX 2.5
+---------------------
+In the admin panel, add a provider with fields matching this example:
+
+{
+  "name": "runpod-ltx",
+  "display_name": "RunPod - LTX 2.5",
+  "provider_type": "video_generation",
+  "base_url": "https://<your-runpod-endpoint>.proxy.runpod.net",
+  "api_key_env": "RUNPOD_API_KEY",
+  "is_active": true,
+  "settings": {
+    "deployment": "runpod-serverless",
+    "model": "ltx-2.5"
+  }
+}
+
+Then add a provider model:
+
+{
+  "provider_id": "<provider UUID returned by the providers list>",
+  "name": "ltx-2.5",
+  "display_name": "LTX 2.5",
+  "description": "LTX 2.5 hosted on the configured RunPod endpoint",
+  "capabilities": {
+    "video_generation": true
+  },
+  "is_active": true
+}
+
+Set `RUNPOD_API_KEY` in the backend deployment's secret/environment manager.
+Do not set the variable to a real key in an example or commit it to source.
+The exact base URL and request format depend on your RunPod deployment and the
+adapter implemented by the generation worker.
+
+Kaggle T4 behind a Cloudflare Tunnel or Gradio
+----------------------------------------------
+For a temporary development endpoint, the provider record can use a protected
+tunnel or Gradio app URL, for example:
+
+{
+  "name": "kaggle-t4-ltx",
+  "display_name": "Kaggle T4 - LTX 2.5",
+  "provider_type": "video_generation",
+  "base_url": "https://<your-protected-tunnel-host>",
+  "api_key_env": "KAGGLE_TUNNEL_API_KEY",
+  "is_active": false,
+  "settings": {
+    "deployment": "kaggle-t4",
+    "interface": "gradio",
+    "model": "ltx-2.5"
+  }
+}
+
+Use the model-creation shape above with this provider's UUID. Keep this provider
+inactive until its endpoint is reachable and the server-side worker adapter is
+configured. A temporary tunnel or notebook runtime may change its URL or stop;
+do not treat it as a production endpoint. Protect the service with authentication
+and restrict access to trusted callers.
+
+To edit a record, use the row's Edit action. To switch the active catalog entry,
+edit its Enabled flag. This flag only changes provider catalog metadata until the
+generation worker supports provider selection; it does not switch live traffic
+in the current application.
